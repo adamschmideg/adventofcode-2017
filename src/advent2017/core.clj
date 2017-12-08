@@ -1,8 +1,8 @@
 (ns advent2017.core
   (:require [clojure.edn :refer [read-string]]))
 
-(defn captcha [s]
-  (let [rotated (conj (butlast s) (last s))
+(defn captcha [s shift]
+  (let [rotated (concat (drop shift s) (take shift s))
         digits (map
                  (fn [x y]
                    (if (= x y)
@@ -12,4 +12,8 @@
                  rotated)]
     (apply + digits)))
 
+(defn d01 [s]
+  (captcha s 1))
 
+(defn d01-2 [s]
+  (captcha s (/ (count s) 2)))
